@@ -75,7 +75,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("printf W:\t%ls\n", psw);
 	printf("\n");
 
-	// utf-8 to Narrow char string.
+	// UTF-8 to locate string (UTF-8字符串 转 本地编码字符串).
 	CA2AZ psaa(psa, CP_UTF8, 0);
 	printf("printf from UTF-8:\t%s\n", psaa);
 

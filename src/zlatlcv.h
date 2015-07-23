@@ -142,31 +142,48 @@ private:
 			return;
 		}
 		// same encoding.
-		if (TRUE) {
-			int nLength = lstrlenA( psz )+1;
-			AtlConvAllocMemory(&m_psz,nLength,m_szBuffer,t_nBufferLength);		
-			Checked::memcpy_s( m_psz, nLength*sizeof( char ), psz, nLength*sizeof( char ));
+		int cchsrc = lstrlenA(psz) + 1;	// 源串长度. 包含终结字符.
+		if (cpsrc==cpdst || cchsrc<=1) {
+			AtlConvAllocMemory(&m_psz, cchsrc, m_szBuffer, t_nBufferLength);		
+			Checked::memcpy_s( m_psz, cchsrc*sizeof(char), psz, cchsrc*sizeof(char));
 		}
 		// Convert.
-		//int nLengthW = lstrlenW( psz )+1;		 
-		//int nLengthA = nLengthW*4;
-		//
-		//AtlConvAllocMemory(&m_psz,nLengthA,m_szBuffer,t_nBufferLength);
-
-		//BOOL bFailed=(0 == ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, m_psz, nLengthA, NULL, NULL ));
-		//if (bFailed)
-		//{
-		//	if (GetLastError()==ERROR_INSUFFICIENT_BUFFER)
-		//	{
-		//		nLengthA = ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, NULL, 0, NULL, NULL );
-		//		AtlConvAllocMemory(&m_psz,nLengthA,m_szBuffer,t_nBufferLength);
-		//		bFailed=(0 == ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, m_psz, nLengthA, NULL, NULL ));
-		//	}			
-		//}
-		//if (bFailed)
-		//{
-		//	AtlThrowLastWin32();
-		//}
+		wchar_t* pbuf = NULL;	// 缓冲区.
+		int cchbuf;	// 缓冲区字符数.
+		for(;;) {	// Use for break.
+			// 1) to wide.
+			cchbuf = ::MultiByteToWideChar( cpsrc, 0, psz, cchsrc, NULL, 0);
+			if (cchbuf<=0) {
+				AtlThrowLastWin32();
+				break;
+			}
+			pbuf = (wchar_t*)malloc(cchbuf*sizeof(wchar_t));
+			if (NULL==pbuf) {
+				break;
+			}
+			cchbuf = ::MultiByteToWideChar( cpsrc, 0, psz, cchsrc, pbuf, cchbuf);
+			if (cchbuf<=0) {
+				AtlThrowLastWin32();
+				break;
+			}
+			// 2) wide to.
+			int cchdst = ::WideCharToMultiByte( cpdst, 0, pbuf, cchbuf, NULL, 0, NULL, NULL );
+			if (cchdst<=0) {
+				AtlThrowLastWin32();
+				break;
+			}
+			AtlConvAllocMemory(&m_psz, cchdst, m_szBuffer, t_nBufferLength);
+			cchdst == ::WideCharToMultiByte( cpdst, 0, pbuf, cchbuf, m_psz, cchdst, NULL, NULL );
+			if (cchdst<=0) {
+				AtlThrowLastWin32();
+				break;
+			}
+			// done.
+			break;
+		}
+		if (NULL!=pbuf) {
+			free(pbuf);
+		}
 	}
 
 public:
