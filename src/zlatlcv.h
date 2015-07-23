@@ -105,6 +105,79 @@
 #ifndef INCLUDED_ZLATLCV_H
 #define INCLUDED_ZLATLCV_H
 
+#include <atlconv.h>
+
+/// Convert source encoding string to destination encoding string (将源编码字符串转为目标编码字符串).
+template< int t_nBufferLength = 128 >
+class CA2AEXZ {
+public:
+	CA2AEXZ( __in_opt LPCSTR psz ) throw(...) :
+		m_psz( m_szBuffer ) {
+		UINT nCodePage = _AtlGetConversionACP();
+		Init( psz, nCodePage, nCodePage);
+	}
+
+	CA2AEXZ( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
+		m_psz( m_szBuffer ) {
+		Init( psz, nCodePage, nCodePage);
+	}
+
+	CA2AEXZ( __in_opt LPCSTR psz, __in UINT cpsrc, __in UINT cpdst ) throw(...) :
+		m_psz( m_szBuffer ) {
+		Init( psz, cpsrc, cpdst);
+	}
+
+	~CA2AEXZ() throw() {		
+		AtlConvFreeMemory(m_psz,m_szBuffer,t_nBufferLength);
+	}
+
+	operator LPSTR() const throw() {
+		return( m_psz );
+	}
+
+private:
+	void Init( __in_opt LPCSTR psz, __in UINT cpsrc, __in UINT cpdst ) throw(...) {
+		if (psz == NULL) {
+			m_psz = NULL;
+			return;
+		}
+		// same encoding.
+		if (TRUE) {
+			int nLength = lstrlenA( psz )+1;
+			AtlConvAllocMemory(&m_psz,nLength,m_szBuffer,t_nBufferLength);		
+			Checked::memcpy_s( m_psz, nLength*sizeof( char ), psz, nLength*sizeof( char ));
+		}
+		// Convert.
+		//int nLengthW = lstrlenW( psz )+1;		 
+		//int nLengthA = nLengthW*4;
+		//
+		//AtlConvAllocMemory(&m_psz,nLengthA,m_szBuffer,t_nBufferLength);
+
+		//BOOL bFailed=(0 == ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, m_psz, nLengthA, NULL, NULL ));
+		//if (bFailed)
+		//{
+		//	if (GetLastError()==ERROR_INSUFFICIENT_BUFFER)
+		//	{
+		//		nLengthA = ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, NULL, 0, NULL, NULL );
+		//		AtlConvAllocMemory(&m_psz,nLengthA,m_szBuffer,t_nBufferLength);
+		//		bFailed=(0 == ::WideCharToMultiByte( nConvertCodePage, 0, psz, nLengthW, m_psz, nLengthA, NULL, NULL ));
+		//	}			
+		//}
+		//if (bFailed)
+		//{
+		//	AtlThrowLastWin32();
+		//}
+	}
+
+public:
+	LPSTR m_psz;
+	char m_szBuffer[t_nBufferLength];
+
+private:
+	CA2AEXZ( const CA2AEXZ& ) throw();
+	CA2AEXZ& operator=( const CA2AEXZ& ) throw();
+};
+typedef CA2AEXZ<> CA2AZ;
 
 
 

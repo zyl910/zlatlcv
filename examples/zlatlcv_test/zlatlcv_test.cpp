@@ -53,8 +53,11 @@
 #include <locale.h>
 #include <tchar.h>
 
+#include "zlatlcv.h"
+
+
 // "Welcome": English, Traditional Chinese, Japanese, Korean.
-const char* psa = "A_Welcome_歡迎_ようこそ_환영.";	//!< UTF-8 string( auto. zlatlcv_test.cpp is utf-8).
+const char* psa = "A_Welcome_歡迎_ようこそ_환영.";	//!< UTF-8 string( Auto. File is UTF-8 encoding).
 const wchar_t* psw = L"W_Welcome_\u6B61\u8FCE_\u3088\u3046\u3053\u305D_\uD658\uC601.";	//!< Wide char string.
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -71,6 +74,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("printf A:\t%s\n", psa);
 	printf("printf W:\t%ls\n", psw);
 	printf("\n");
+
+	// utf-8 to Narrow char string.
+	CA2AZ psaa(psa, CP_UTF8, 0);
+	printf("printf from UTF-8:\t%s\n", psaa);
 
 	// _tprintf.
 	CA2CT psat(psa);
