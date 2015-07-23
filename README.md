@@ -77,6 +77,14 @@ Example code:
 
 ### Quick reference (快速参考)
 
+The names of the conversion macros take the form (转换宏的命名规则):
+
+	C<SourceType>2[C]<DestinationType>[EX]
+
+* `<SourceType>`/`<DestinationType>`: A(char), W(wchar_t), T(TCHAR), U8(UTF-8), 
+* `[C]` is present when the destination type must be constant.
+* `[EX]` is present when the initial size of the buffer must be specified as a template argument.
+
 Commonly used conversion Macros (常用转换宏):
 
 * CU82A: Convert UTF-8 string to narrow string (将 UTF-8字符串 转为 窄字符串).
@@ -86,21 +94,13 @@ Commonly used conversion Macros (常用转换宏):
 * CU82T: Convert UTF-8 string to TCHAR string (将 UTF-8字符串 转为 TCHAR字符串).
 * CT2U8: Convert TCHAR string to UTF-8 string (将 TCHAR字符串 转为 UTF-8字符串).
 
-The names of the conversion macros take the form (转换宏的命名方式):
-
-	C<SourceType>2[C]<DestinationType>[EX]
-
-* `<SourceType>`/`<DestinationType>`: A(char), W(wchar_t), T(TCHAR), U8(UTF-8), 
-* `[C]` is present when the destination type must be constant.
-* `[EX]` is present when the initial size of the buffer must be specified as a template argument.
-
 Low level conversion Classes (底层支撑类):
 
-* CA2AEXZ: Convert source encoding string to destination encoding string (将源编码字符串转为目标编码字符串).
-* CU82AEX: Convert UTF-8 string to narrow string (将 UTF-8字符串 转为 窄字符串).
-* CA2U8EX: Convert narrow string to UTF-8 string (将 窄字符串 转为 UTF-8字符串).
-* CU82WEX: Convert UTF-8 string to wide string (将 UTF-8字符串 转为 宽字符串).
-* CW2U8EX: Convert wide string to UTF-8 string (将 宽字符串 转为 UTF-8字符串).
+* CA2AEXZ: Convert source encoding string to destination encoding string (将源编码字符串转为目标编码字符串), with t_nBufferLength template param.
+* CU82AEX: Convert UTF-8 string to narrow string (将 UTF-8字符串 转为 窄字符串), with t_nBufferLength template param.
+* CA2U8EX: Convert narrow string to UTF-8 string (将 窄字符串 转为 UTF-8字符串), with t_nBufferLength template param.
+* CU82WEX: Convert UTF-8 string to wide string (将 UTF-8字符串 转为 宽字符串), with t_nBufferLength template param.
+* CW2U8EX: Convert wide string to UTF-8 string (将 宽字符串 转为 UTF-8字符串), with t_nBufferLength template param.
 
 
 
