@@ -57,7 +57,7 @@
 
 
 // "Welcome": English, Traditional Chinese, Japanese, Korean.
-const char* psa = "A_Welcome_歡迎_ようこそ_환영.";	//!< UTF-8 string( Auto. File is UTF-8 encoding).
+const char* psa = "A_Welcome_歡迎_ようこそ_환영.";	//!< UTF-8 string( Auto. File used UTF-8 encoding).
 const wchar_t* psw = L"W_Welcome_\u6B61\u8FCE_\u3088\u3046\u3053\u305D_\uD658\uC601.";	//!< Wide char string.
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -67,6 +67,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// title.
 	_tprintf(_T("zlatlcv v1.0 (%dbit)\n"), (int)(8*sizeof(int*)));
+	_tprintf(_T("sizeof(wchar_t): %d\n"), (int)(sizeof(wchar_t)));
+	_tprintf(_T("sizeof(TCHAR): %d\n"), (int)(sizeof(TCHAR)));
 	_tprintf(_T("\n"));
 
 	// printf.
@@ -93,9 +95,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	// _tprintf.
 	CA2CT psat(psa);
 	CW2CT pswt(psw);
+	CU82T psu8t(psa);
 	fflush(stdout);
 	_tprintf(_T("_tprintf A:\t%s\n"), psat);
 	_tprintf(_T("_tprintf W:\t%s\n"), pswt);
+	_tprintf(_T("_tprintf U8:\t%s\n"), psu8t);
 
 	return 0;
 }

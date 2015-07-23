@@ -301,6 +301,43 @@ private:
 typedef CW2U8EX<> CW2U8;
 
 
+#define CA2CAEXZ	CA2AEXZ
+#define CA2CAZ	CA2AZ
+#define CU82CAEX	CU82AEX
+#define CU82CA	CU82A
+#define CA2CU8EX	CA2U8EX
+#define CA2CU8	CA2U8
+#define CU82CWEX	CU82WEX
+#define CU82CW	CU82W
+#define CW2CU8EX	CW2U8EX
+#define CW2CU8	CW2U8
+
+
+
+// ## TCHAR ##
+
+#ifdef _UNICODE
+	#define CU82TEX	CU82WEX
+	#define CU82T	CU82W
+	#define CT2U8EX	CW2U8EX
+	#define CT2U8	CW2U8
+
+	#define CU82CTEX	CU82CWEX
+	#define CU82CT	CU82CW
+	#define CT2CU8EX	CW2CU8EX
+	#define CT2CU8	CW2CU8
+#else
+	#define CU82TEX	CU82AEX
+	#define CU82T	CU82A
+	#define CT2U8EX	CA2U8EX
+	#define CT2U8	CA2U8
+
+	#define CU82CTEX	CU82CAEX
+	#define CU82CT	CU82CA
+	#define CT2CU8EX	CA2CU8EX
+	#define CT2CU8	CA2CU8
+#endif	// #ifdef _UNICODE.
+
 
 }
 
