@@ -126,7 +126,7 @@ public:
 	}
 
 	CA2AEXZ( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		m_psz( m_szBuffer ) {
+		m_psz( m_szBuffer ) {	// 将 cpsrc编码字符串 转为 cpdst编码字符串.
 		Init( psz, cpsrc, cpdst);
 	}
 
@@ -149,6 +149,7 @@ private:
 		if (cpsrc==cpdst || cchsrc<=1) {
 			AtlConvAllocMemory(&m_psz, cchsrc, m_szBuffer, t_nBufferLength);		
 			Checked::memcpy_s( m_psz, cchsrc*sizeof(char), psz, cchsrc*sizeof(char));
+			return;
 		}
 		// Convert.
 		wchar_t* pbuf = NULL;	// 缓冲区.
@@ -253,10 +254,15 @@ template< int t_nBufferLength = 128 >
 class CU82WEX: public CA2WEX<t_nBufferLength> {
 public:
 	CU82WEX( __in_opt LPCSTR psz ) throw(...) :
-		CA2WEX( psz, CP_UTF8 ) {
+		CA2WEX( psz, CP_UTF8 ) {	// 将 UTF-8字符串 转为 宽字符串.
 	}
 	CU82WEX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
-		CA2WEX( psz, nCodePage ) {
+		CA2WEX( psz, CP_UTF8 ) {	// 将 UTF-8字符串 转为 宽字符串.
+			(void)nCodePage;
+	}
+	CU82WEX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
+		CW2AEX( psz, cpsrc ) {	// 将 cpsrc编码字符串 转为 宽字符串.
+			(void)cpdst;
 	}
 	~CU82WEX() throw() {
 		// call base.
@@ -267,6 +273,32 @@ private:
 	CU82WEX& operator=( const CU82WEX& ) throw();
 };
 typedef CU82WEX<> CU82W;
+
+
+/// Convert wide string to UTF-8 string (将 宽字符串 转为 UTF-8字符串).
+template< int t_nBufferLength = 128 >
+class CW2U8EX: public CW2AEX<t_nBufferLength> {
+public:
+	CW2U8EX( __in_opt LPCWSTR psz ) throw(...) :
+		CW2AEX( psz, CP_UTF8 ) {	// 将 宽字符串 转为 UTF-8字符串.
+	}
+	CW2U8EX( __in_opt LPCWSTR psz, UINT nCodePage ) throw(...) :
+		CW2AEX( psz, CP_UTF8 ) {	// 将 宽字符串 转为 UTF-8字符串.
+			(void)nCodePage;
+	}
+	CW2U8EX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
+		CW2AEX( psz, cpdst ) {	// 将 宽字符串 转为 cpdst编码字符串.
+			(void)cpsrc;
+	}
+	~CW2U8EX() throw() {
+		// call base.
+	}
+
+private:
+	CW2U8EX( const CW2U8EX& ) throw();
+	CW2U8EX& operator=( const CW2U8EX& ) throw();
+};
+typedef CW2U8EX<> CW2U8;
 
 
 

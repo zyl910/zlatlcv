@@ -85,8 +85,10 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// string to UTF-8 (各种字符串 转 UTF-8).
 	CA2U8 psau8(psaa);
+	CW2U8 pswu8(psaw);
 	fflush(stdout);
 	printf("printf UTF-8 from A:\t%s\n", psau8);
+	printf("printf UTF-8 from W:\t%s\n", pswu8);
 
 	// _tprintf.
 	CA2CT psat(psa);
