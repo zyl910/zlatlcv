@@ -76,7 +76,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("\n");
 
 	// UTF-8 to locate string (UTF-8字符串 转 本地编码字符串).
-	CA2AZ psaa(psa, CP_UTF8, 0);
+	//CA2AZ psaa(psa, CP_UTF8, 0);
+	CU82A psaa(psa);
 	CU82W psaw(psa);
 	printf("printf A from UTF-8:\t%s\n", psaa);
 	printf("printf W from UTF-8:\t%ls\n", psaw);
