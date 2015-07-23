@@ -134,7 +134,7 @@
 ///
 /// ## Change history (变更日志)
 ///
-/// [2015-07-23] v1.0
+/// [2015-07-23] v1.0: http://www.cnblogs.com/zyl910/p/zlatlcv.html
 ///
 /// * Release v1.0 (发布1.0版).
 ///
