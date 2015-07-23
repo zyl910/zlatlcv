@@ -180,8 +180,9 @@ public:
 		Init( psz, nCodePage, nCodePage);
 	}
 
+	/// 将 cpsrc编码字符串 转为 cpdst编码字符串.
 	CA2AEXZ( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		m_psz( m_szBuffer ) {	// 将 cpsrc编码字符串 转为 cpdst编码字符串.
+		m_psz( m_szBuffer ) {
 		Init( psz, cpsrc, cpdst);
 	}
 
@@ -260,15 +261,21 @@ typedef CA2AEXZ<> CA2AZ;
 template< int t_nBufferLength = 128 >
 class CU82AEX: public CA2AEXZ<t_nBufferLength> {
 public:
+	/// 将 UTF-8字符串 转为 本地编码字符串.
 	CU82AEX( __in_opt LPCSTR psz ) throw(...) :
-		CA2AEXZ( psz, CP_UTF8, 0 ) {	// 将 UTF-8字符串 转为 本地编码字符串.
+		CA2AEXZ( psz, CP_UTF8, 0 ) {
 	}
+
+	/// 将 UTF-8字符串 转为 nCodePage编码字符串.
 	CU82AEX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
-		CA2AEXZ( psz, CP_UTF8, nCodePage ) {	// 将 UTF-8字符串 转为 nCodePage编码字符串.
+		CA2AEXZ( psz, CP_UTF8, nCodePage ) {
 	}
+
+	/// 将 cpsrc编码字符串 转为 cpdst编码字符串.
 	CU82AEX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		CA2AEXZ( psz, cpsrc, cpdst ) {	// 将 cpsrc编码字符串 转为 cpdst编码字符串.
+		CA2AEXZ( psz, cpsrc, cpdst ) {	
 	}
+
 	~CU82AEX() throw() {
 		// call base.
 	}
@@ -284,15 +291,21 @@ typedef CU82AEX<> CU82A;
 template< int t_nBufferLength = 128 >
 class CA2U8EX: public CA2AEXZ<t_nBufferLength> {
 public:
+	/// 将 本地编码字符串 转为 UTF-8字符串.
 	CA2U8EX( __in_opt LPCSTR psz ) throw(...) :
-		CA2AEXZ( psz, 0, CP_UTF8 ) {	// 将 本地编码字符串 转为 UTF-8字符串.
+		CA2AEXZ( psz, 0, CP_UTF8 ) {
 	}
+
+	/// 将 nCodePage编码字符串 转为 UTF-8字符串.
 	CA2U8EX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
-		CA2AEXZ( psz, nCodePage, CP_UTF8 ) {	// 将 nCodePage编码字符串 转为 UTF-8字符串.
+		CA2AEXZ( psz, nCodePage, CP_UTF8 ) {
 	}
+
+	/// 将 cpsrc编码字符串 转为 cpdst编码字符串.
 	CA2U8EX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		CA2AEXZ( psz, cpsrc, cpdst ) {	// 将 cpsrc编码字符串 转为 cpdst编码字符串.
+		CA2AEXZ( psz, cpsrc, cpdst ) {
 	}
+
 	~CA2U8EX() throw() {
 		// call base.
 	}
@@ -308,17 +321,23 @@ typedef CA2U8EX<> CA2U8;
 template< int t_nBufferLength = 128 >
 class CU82WEX: public CA2WEX<t_nBufferLength> {
 public:
+	/// 将 UTF-8字符串 转为 宽字符串.
 	CU82WEX( __in_opt LPCSTR psz ) throw(...) :
-		CA2WEX( psz, CP_UTF8 ) {	// 将 UTF-8字符串 转为 宽字符串.
+		CA2WEX( psz, CP_UTF8 ) {
 	}
+
+	/// 将 UTF-8字符串 转为 宽字符串.
 	CU82WEX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
-		CA2WEX( psz, CP_UTF8 ) {	// 将 UTF-8字符串 转为 宽字符串.
+		CA2WEX( psz, CP_UTF8 ) {
 			(void)nCodePage;
 	}
+
+	/// 将 cpsrc编码字符串 转为 宽字符串.
 	CU82WEX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		CW2AEX( psz, cpsrc ) {	// 将 cpsrc编码字符串 转为 宽字符串.
+		CW2AEX( psz, cpsrc ) {
 			(void)cpdst;
 	}
+
 	~CU82WEX() throw() {
 		// call base.
 	}
@@ -334,15 +353,20 @@ typedef CU82WEX<> CU82W;
 template< int t_nBufferLength = 128 >
 class CW2U8EX: public CW2AEX<t_nBufferLength> {
 public:
+	/// 将 宽字符串 转为 UTF-8字符串.
 	CW2U8EX( __in_opt LPCWSTR psz ) throw(...) :
-		CW2AEX( psz, CP_UTF8 ) {	// 将 宽字符串 转为 UTF-8字符串.
+		CW2AEX( psz, CP_UTF8 ) {
 	}
+
+	/// 将 宽字符串 转为 UTF-8字符串.
 	CW2U8EX( __in_opt LPCWSTR psz, UINT nCodePage ) throw(...) :
-		CW2AEX( psz, CP_UTF8 ) {	// 将 宽字符串 转为 UTF-8字符串.
+		CW2AEX( psz, CP_UTF8 ) {	
 			(void)nCodePage;
 	}
+
+	/// 将 宽字符串 转为 cpdst编码字符串.
 	CW2U8EX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
-		CW2AEX( psz, cpdst ) {	// 将 宽字符串 转为 cpdst编码字符串.
+		CW2AEX( psz, cpdst ) {	
 			(void)cpsrc;
 	}
 	~CW2U8EX() throw() {
@@ -392,6 +416,29 @@ typedef CW2U8EX<> CW2U8;
 	#define CT2CU8EX	CA2CU8EX
 	#define CT2CU8	CA2CU8
 #endif	// #ifdef _UNICODE.
+
+
+/// @typedef CA2AZ
+/// Convert source encoding string to destination encoding string (将源编码字符串转为目标编码字符串).
+
+/// @typedef CU82A
+/// Convert UTF-8 string to narrow string (将 UTF-8字符串 转为 窄字符串).
+
+/// @typedef CA2U8
+/// Convert narrow string to UTF-8 string (将 窄字符串 转为 UTF-8字符串).
+
+/// @typedef CU82W
+/// Convert UTF-8 string to wide string (将 UTF-8字符串 转为 宽字符串).
+
+/// @typedef CW2U8
+/// Convert wide string to UTF-8 string (将 宽字符串 转为 UTF-8字符串).
+
+/// @def CU82T
+/// Convert UTF-8 string to TCHAR string (将 UTF-8字符串 转为 TCHAR字符串).
+
+/// @def CT2U8
+/// Convert TCHAR string to UTF-8 string (将 TCHAR字符串 转为 UTF-8字符串).
+
 
 
 }
