@@ -224,6 +224,30 @@ private:
 typedef CU82AEX<> CU82A;
 
 
+/// Convert narrow string to UTF-8 string (将 窄字符串 转为 UTF-8字符串).
+template< int t_nBufferLength = 128 >
+class CA2U8EX: public CA2AEXZ<t_nBufferLength> {
+public:
+	CA2U8EX( __in_opt LPCSTR psz ) throw(...) :
+		CA2AEXZ( psz, 0, CP_UTF8 ) {	// 将 本地编码字符串 转为 UTF-8字符串.
+	}
+	CA2U8EX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
+		CA2AEXZ( psz, nCodePage, CP_UTF8 ) {	// 将 nCodePage编码字符串 转为 UTF-8字符串.
+	}
+	CA2U8EX( __in_opt LPCSTR psz, UINT cpsrc, UINT cpdst ) throw(...) :
+		CA2AEXZ( psz, cpsrc, cpdst ) {	// 将 cpsrc编码字符串 转为 cpdst编码字符串.
+	}
+	~CA2U8EX() throw() {
+		// call base.
+	}
+
+private:
+	CA2U8EX( const CA2U8EX& ) throw();
+	CA2U8EX& operator=( const CA2U8EX& ) throw();
+};
+typedef CA2U8EX<> CA2U8;
+
+
 /// Convert UTF-8 string to wide string (将 UTF-8字符串 转为 宽字符串).
 template< int t_nBufferLength = 128 >
 class CU82WEX: public CA2WEX<t_nBufferLength> {

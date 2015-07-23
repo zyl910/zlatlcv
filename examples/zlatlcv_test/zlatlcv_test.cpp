@@ -75,13 +75,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("printf W:\t%ls\n", psw);
 	printf("\n");
 
-	// UTF-8 to locate string (UTF-8字符串 转 本地编码字符串).
+	// UTF-8 to string (UTF-8 转 各种字符串).
 	//CA2AZ psaa(psa, CP_UTF8, 0);
 	CU82A psaa(psa);
 	CU82W psaw(psa);
 	printf("printf A from UTF-8:\t%s\n", psaa);
 	printf("printf W from UTF-8:\t%ls\n", psaw);
 	printf("\n");
+
+	// string to UTF-8 (各种字符串 转 UTF-8).
+	CA2U8 psau8(psaa);
+	fflush(stdout);
+	printf("printf UTF-8 from A:\t%s\n", psau8);
 
 	// _tprintf.
 	CA2CT psat(psa);
