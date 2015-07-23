@@ -107,6 +107,9 @@
 
 #include <atlconv.h>
 
+namespace ATL
+{
+
 /// Convert source encoding string to destination encoding string (将源编码字符串转为目标编码字符串).
 template< int t_nBufferLength = 128 >
 class CA2AEXZ {
@@ -196,6 +199,29 @@ private:
 };
 typedef CA2AEXZ<> CA2AZ;
 
+
+/// Convert UTF-8 string to wide string (将 UTF-8 字符串转为 宽字符串).
+template< int t_nBufferLength = 128 >
+class CU82WEX: public CA2WEX<t_nBufferLength> {
+public:
+	CU82WEX( __in_opt LPCSTR psz ) throw(...) :
+		CA2WEX( psz, CP_UTF8 ) {
+	}
+	CU82WEX( __in_opt LPCSTR psz, UINT nCodePage ) throw(...) :
+		CA2WEX( psz, nCodePage ) {
+	}
+	~CU82WEX() throw() {
+		// call base.
+	}
+
+private:
+	CU82WEX( const CU82WEX& ) throw();
+	CU82WEX& operator=( const CU82WEX& ) throw();
+};
+typedef CU82WEX<> CU82W;
+
+
+}
 
 
 #endif	// #ifndef INCLUDED_ZLATLCV_H
