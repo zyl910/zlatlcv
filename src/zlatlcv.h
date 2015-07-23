@@ -73,7 +73,7 @@
 /// 
 /// ## Tested compiler (测试过的编译器)
 /// 
-/// * Virtual C++: 7.1(2003), 8(2005), 9(2008), 10(2010), 11(2012), 12(2013).
+/// * Virtual C++: 8(2005), 9(2008), 10(2010), 11(2012), 12(2013).
 /// 
 /// 
 /// 
@@ -87,8 +87,7 @@
 ///
 
 ///
-/// @file zlatlcv.h
-/// @file	z_tchar.h
+/// @file	zlatlcv.h
 /// @brief	zyl910's ATL String Conversion Utils (ATL字符串转换辅助) .
 /// @since	@ref GROUP_ZLATLCV 1.0
 ///
@@ -110,3 +109,8 @@
 
 
 #endif	// #ifndef INCLUDED_ZLATLCV_H
+
+
+/// @}
+/// @}
+/// @}
